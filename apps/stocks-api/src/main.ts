@@ -37,9 +37,12 @@ const init = async () => {
     server.route({
         method: 'GET',
         path: '/stock',
-        handler: async function (request, h) {          
+        options: {
+          cors: true,
+          handler: async function (request, h) {          
           return await sumCache.get(request.query.symbol);
       }
+    }
     });
 
     await server.start();
