@@ -21,17 +21,17 @@ export class StocksComponent implements OnInit, OnDestroy {
   currentDate = new Date();
 
   quotes$ = this.priceQuery.priceQueries$;
-
-  timePeriods = [
-    { viewValue: 'All available data', value: 'max' },
-    { viewValue: 'Five years', value: '5y' },
-    { viewValue: 'Two years', value: '2y' },
-    { viewValue: 'One year', value: '1y' },
-    { viewValue: 'Year-to-date', value: 'ytd' },
-    { viewValue: 'Six months', value: '6m' },
-    { viewValue: 'Three months', value: '3m' },
-    { viewValue: 'One month', value: '1m' }
-  ];
+   
+  // timePeriods = [
+  //   { viewValue: 'All available data', value: 'max' },
+  //   { viewValue: 'Five years', value: '5y' },
+  //   { viewValue: 'Two years', value: '2y' },
+  //   { viewValue: 'One year', value: '1y' },
+  //   { viewValue: 'Year-to-date', value: 'ytd' },
+  //   { viewValue: 'Six months', value: '6m' },
+  //   { viewValue: 'Three months', value: '3m' },
+  //   { viewValue: 'One month', value: '1m' }
+  // ];
 
   constructor(private fb: FormBuilder, private priceQuery: PriceQueryFacade,
     private _dateFormatPipe:DatePipe) {
@@ -66,33 +66,33 @@ export class StocksComponent implements OnInit, OnDestroy {
 
   fetchQuote() {    
     if (this.stockPickerForm.valid) {     
-      let period : string;
-      const dateDiff = this.date_diff_indays(this.stockPickerForm.controls.fromDate.value, this.stockPickerForm.controls.toDate.value)
-      console.log(dateDiff);
+      //let period : string;
+      // const dateDiff = this.date_diff_indays(this.stockPickerForm.controls.fromDate.value, this.stockPickerForm.controls.toDate.value)
+      // console.log(dateDiff);
       
-      if(dateDiff < 8)
-        period = '5d'
-      else if(dateDiff < 32)
-        period = '1m'
-      else 
-        period = '6m'
+      // if(dateDiff < 8)
+      //   period = '5d'
+      // else if(dateDiff < 32)
+      //   period = '1m'
+      // else 
+      //   period = '6m'
 
-      const obj = {
-        symbol : this.stockPickerForm.controls.symbol.value,
-        period : period
-        // fromDate : this._dateFormatPipe.transform(this.stockPickerForm.controls.fromDate.value, "yyyy-MM-dd"),
-        // toDate : this._dateFormatPipe.transform(this.stockPickerForm.controls.toDate.value, "yyyy-MM-dd")
-      }
+      // const obj = {
+      //   symbol : this.stockPickerForm.controls.symbol.value,
+      //   period : period
+      //   // fromDate : this._dateFormatPipe.transform(this.stockPickerForm.controls.fromDate.value, "yyyy-MM-dd"),
+      //   // toDate : this._dateFormatPipe.transform(this.stockPickerForm.controls.toDate.value, "yyyy-MM-dd")
+      // }
       //this.priceQuery.fetchQuote(obj.symbol, obj.fromDate, obj.toDate);
-      this.priceQuery.fetchQuote(obj.symbol, obj.period);
+      this.priceQuery.fetchQuote(this.stockPickerForm.controls.symbol.value, "max");
     }
   }
 
-  date_diff_indays(date1, date2) {
-    const dt1 = new Date(date1);
-    const dt2 = new Date(date2);
-    return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
-  }
+  // date_diff_indays(date1, date2) {
+  //   const dt1 = new Date(date1);
+  //   const dt2 = new Date(date2);
+  //   return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+  // }
 
   ngOnDestroy(): void {
     this.destroyNotifier$.next();
