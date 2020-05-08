@@ -24,7 +24,7 @@ export class PriceQueryEffects {
       run: (action: FetchPriceQuery, state: PriceQueryPartialState) => {
         return this.httpClient
           .get(
-            `${this.env.apiURL}/stock?symbol=${action.symbol}`
+            `${this.env.apiURL}/stock?symbol=${action.symbol}/chart/${action.period}`
           )
           .pipe(
             map(resp => new PriceQueryFetched(resp as PriceQueryResponse[]))
