@@ -18,18 +18,37 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>Favorite time period</mat-label>
-    <mat-select formControlName="period">
-      <mat-option
-        *ngFor="let timePeriod of timePeriods"
-        [value]="timePeriod.value"
-      >
-        {{ timePeriod.viewValue }}
-      </mat-option>
-    </mat-select>
+    <mat-label>From Date</mat-label>
+    <input matInput formControlName="fromDate" [matDatepicker]="fromDatePicker" [max]="currentDate">
+    <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #fromDatePicker></mat-datepicker>
+    <mat-error>
+      <span
+      *ngIf="
+        !stockPickerForm.get('fromDate').valid &&
+        stockPickerForm.get('fromDate').touched
+      "
+      >Please select From Date</span>
+  </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>To Date</mat-label>
+    <input matInput formControlName="toDate" [matDatepicker]="toDatePicker" [max]="currentDate" [min]="stockPickerForm.controls.fromDate.value">
+    <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #toDatePicker ></mat-datepicker>
+    <mat-error>
+      <span
+      *ngIf="
+        !stockPickerForm.get('toDate').valid &&
+        stockPickerForm.get('toDate').touched
+      "
+      >Please select To Date</span>
+  </mat-error>
   </mat-form-field>
 
   <button (click)="fetchQuote()" mat-raised-button>Go</button>
 </form>
 
-<coding-challenge-chart [data$]="quotes$"></coding-challenge-chart>
+<coding-challenge-chart [data$]="quotes$" [fromDate]="stockPickerForm.controls.fromDate.value"
+ [toDate]="stockPickerForm.controls.toDate.value"></coding-challenge-chart>
