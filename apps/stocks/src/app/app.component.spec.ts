@@ -1,10 +1,12 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import {RouterTestingModule} from '@angular/router/testing'
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent]
+      declarations: [AppComponent], schemas:[NO_ERRORS_SCHEMA], imports: [ RouterTestingModule ]
     }).compileComponents();
   }));
 
@@ -17,7 +19,7 @@ describe('AppComponent', () => {
   it(`should have as title 'stocks'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('stocks');
+    expect(app.title).toEqual('Stocks');
   });
 
   it('should render title in a h1 tag', () => {
