@@ -45,7 +45,6 @@ export class StocksComponent implements OnInit, OnDestroy {
     }, err =>{
       console.log(err);      
     }, ()=>{
-      console.log('Data fetch complted');      
     });
   }
 
